@@ -16,3 +16,15 @@
 
 6. When one player no longer has any seeds in any of their houses, the game ends. The other player moves all remaining seeds to their store, and the player with the most seeds in their store wins.
 
+## Getting Started
+
+System is implemented using mostly:
+
+- [Spring Boot](https://projects.spring.io/spring-boot/)
+- Spring MVC
+
+## Execute
+
+System requires Java 8 and Maven 3 and may be executed using command:
+
+    $ mvn spring-boot:run
