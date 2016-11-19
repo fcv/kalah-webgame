@@ -1,7 +1,7 @@
 package br.fcv.kalah_webgame.core;
 
-import static br.fcv.kalah_webgame.core.PlayerTest.containsNumberOfStones;
-import static br.fcv.kalah_webgame.core.PlayerTest.hasNumberOfStones;
+import static br.fcv.kalah_webgame.core.Player.PLAYER_1;
+import static br.fcv.kalah_webgame.core.Player.PLAYER_2;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -14,14 +14,14 @@ public class GameTest {
 	@Test
 	public void whenAGameIsInitializedAllPlayersShouldBeInitialized() {
 		Game game = new Game();
-		assertThat(game.getPlayer1(), notNullValue());
-		assertThat(game.getPlayer2(), notNullValue());
+		assertThat(game.getPlayer1Board(), notNullValue());
+		assertThat(game.getPlayer2Board(), notNullValue());
 	}
 
 	@Test
 	public void whenAGameIsInitializedItShouldStartWithPlayer1() {
 		Game game = new Game();
-		assertThat(game.getActivePlayer(), equalTo(game.getPlayer1()));
+		assertThat(game.getActivePlayer(), equalTo(PLAYER_1));
 	}
 
 	@Test
@@ -38,28 +38,28 @@ public class GameTest {
 
 		Game game = new Game();
 		Player originalActivePlayer = game.getActivePlayer();
-		assertThat(originalActivePlayer, equalTo(game.getPlayer1()));
+		assertThat(originalActivePlayer, equalTo(PLAYER_1));
 		game.sow(originalActivePlayer, 1);
-		assertThat(game.getActivePlayer(), equalTo(game.getPlayer2()));
+		assertThat(game.getActivePlayer(), equalTo(PLAYER_2));
 	}
 
 	@Test
 	public void whenAPlayerRunOutOfStonesGameIsFinished() {
 
 		Game game = new Game();
-		Player p1 = game.getPlayer1();
-		Player p2 = game.getPlayer2();
+		PlayerBoard p1 = game.getPlayer1Board();
+		PlayerBoard p2 = game.getPlayer2Board();
 
 		p1.setNumberOfStones(0, 0, 0, 0, 0, 1);
-		game.sow(p1, 5);
+		game.sow(PLAYER_1, 5);
 
-		assertThat(p1.getPits(), containsNumberOfStones(0, 0, 0, 0, 0, 0));
-		assertThat(p1.getHouse(), hasNumberOfStones(equalTo(1)));
+		assertThat(p1.getPits(), PlayerBoardTest.containsNumberOfStones(0, 0, 0, 0, 0, 0));
+		assertThat(p1.getHouse(), PlayerBoardTest.hasNumberOfStones(equalTo(1)));
 
-		assertThat(p2.getPits(), containsNumberOfStones(0, 0, 0, 0, 0, 0));
-		assertThat(p2.getHouse(), hasNumberOfStones(equalTo(36)));
+		assertThat(p2.getPits(), PlayerBoardTest.containsNumberOfStones(0, 0, 0, 0, 0, 0));
+		assertThat(p2.getHouse(), PlayerBoardTest.hasNumberOfStones(equalTo(36)));
 
 		assertThat(game.isFinished(), is(true));
-		assertThat(game.getWinner().get(), equalTo(p2));
+		assertThat(game.getWinner().get(), equalTo(PLAYER_2));
 	}
 }

@@ -1,5 +1,7 @@
 package br.fcv.kalah_webgame.core;
 
+import static br.fcv.kalah_webgame.core.Player.PLAYER_1;
+import static br.fcv.kalah_webgame.core.Player.PLAYER_2;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 
@@ -17,26 +19,26 @@ public class Game {
 	public static final int INITIAL_NUMBER_OF_STONES = 6;
 	public static final int NUMBER_OF_PITS = 6;
 
-	private Player player1;
-	private Player player2;
+	private PlayerBoard player1Board;
+	private PlayerBoard player2Board;
 
 	private Player activePlayer;
 
 	private Player winner;
 
 	public Game() {
-		this.player1 = new Player();
-		this.player2 = new Player();
-		this.activePlayer = player1;
+		this.player1Board = new PlayerBoard(PLAYER_1);
+		this.player2Board = new PlayerBoard(PLAYER_2);
+		this.activePlayer = PLAYER_1;
 		this.winner = null;
 	}
 
-	public Player getPlayer1() {
-		return player1;
+	public PlayerBoard getPlayer1Board() {
+		return player1Board;
 	}
 
-	public Player getPlayer2() {
-		return player2;
+	public PlayerBoard getPlayer2Board() {
+		return player2Board;
 	}
 
 	public Player getActivePlayer() {
@@ -58,11 +60,14 @@ public class Game {
 		// TODO raise a meaningful Exception
 		checkState(!isFinished(), "game cannot be already finished");
 
-		Player opponent = player.equals(player1) ? player2 : player1;
-		player.sow(resourcePitIndex, opponent, (lastSownPit) -> {
+		Player opponent = player.getOpponent();
+		PlayerBoard opponentBoard = opponent.getBoard(this);
 
-			Player p1 = getPlayer1();
-			Player p2 = getPlayer2();
+		PlayerBoard playerBoard = player.getBoard(this);
+		player.sow(resourcePitIndex, playerBoard, opponentBoard, (lastSownPit) -> {
+
+			PlayerBoard p1 = getPlayer1Board();
+			PlayerBoard p2 = getPlayer2Board();
 
 			if (p1.isOutOfStones() || p2.isOutOfStones()) {
 				finishGame();
@@ -70,7 +75,7 @@ public class Game {
 
 				// only change active player if current player's sown haven't
 				// finished on his own house
-				if (!lastSownPit.equals(player.getHouse())) {
+				if (!lastSownPit.equals(playerBoard.getHouse())) {
 					activePlayer = opponent;
 				}
 			}
@@ -83,21 +88,26 @@ public class Game {
 	 */
 	private void finishGame() {
 
-		Player p1 = getPlayer1();
-		Player p2 = getPlayer2();
+		// player 1's board
+		PlayerBoard p1Board = getPlayer1Board();
+		// player 2's board
+		PlayerBoard p2Board = getPlayer2Board();
 
-		p1.moveRemainingStonesToHouse();
-		p2.moveRemainingStonesToHouse();
+		PLAYER_1.moveRemainingStonesToHouse(p1Board);
+		PLAYER_2.moveRemainingStonesToHouse(p2Board);
 
-		Player winner = p1.getHouse().getNumberOfStones() > p2.getHouse()
-				.getNumberOfStones() ? p1 : p2;
+		Pit p1House = p1Board.getHouse();
+		Pit p2House = p1Board.getHouse();
+
+		Player winner = p1House.getNumberOfStones() > p2House
+				.getNumberOfStones() ? PLAYER_1 : PLAYER_2;
 
 		this.winner = winner;
 	}
 
 	@Override
 	public String toString() {
-		return format("{player1: %s, player2: %s, activePlayer: %s}", player1, player2, activePlayer);
+		return format("{player1Board: %s, player2Board: %s, activePlayer: %s}", player1Board, player2Board, activePlayer);
 	}
 
 }
