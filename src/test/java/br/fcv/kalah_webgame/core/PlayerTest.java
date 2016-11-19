@@ -81,7 +81,7 @@ public class PlayerTest {
 	 * @param stones number of stones in each pit
 	 * @return
 	 */
-	private static Matcher<Iterable<? extends Pit>> containsNumberOfStones(
+	public static Matcher<Iterable<? extends Pit>> containsNumberOfStones(
 			int... stones) {
 
 		List<Matcher<? super Pit>> matchers = stream(stones)
@@ -90,7 +90,7 @@ public class PlayerTest {
 		return contains(matchers);
 	}
 
-	private static Matcher<? super Pit> hasNumberOfStones(
+	public static Matcher<? super Pit> hasNumberOfStones(
 			Matcher<Integer> matcher) {
 
 		return hasProperty("numberOfStones", matcher);

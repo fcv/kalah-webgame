@@ -66,10 +66,6 @@ public class Player {
 		return house;
 	}
 
-	public String toString() {
-		return format("{pits: %s, house: %s}", pits, house);
-	}
-
 	public void sow(int pitIdx, Player opponent, TurnListener turnListener) {
 		checkArgument(pitIdx >= 0 && pitIdx < pits.size(),
 				"invalid pit value %s", pitIdx);
@@ -140,4 +136,28 @@ public class Player {
 		}
 	}
 
+	/**
+	 * Moves all remaining stones is player's "ordinal" pits to his house pit.
+	 */
+	public void moveRemainingStonesToHouse() {
+
+		int remainingStones = 0;
+		for (Pit pit : getPits()) {
+			remainingStones += pit.removeStones();
+		}
+		getHouse().receiveStones(remainingStones);
+	}
+	/**
+	 * Return <code>true</code> whether all this player's pits, besides its house,
+	 * are empty.
+	 * 
+	 * @return
+	 */
+	public boolean isOutOfStones() {
+		return getPits().stream().noneMatch(p -> p.getNumberOfStones() > 0);
+	}
+
+	public String toString() {
+		return format("{pits: %s, house: %s}", pits, house);
+	}
 }
