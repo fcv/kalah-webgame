@@ -1,4 +1,4 @@
-package br.fcv.kalah_webgame;
+package br.fcv.kalah_webgame.core;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
