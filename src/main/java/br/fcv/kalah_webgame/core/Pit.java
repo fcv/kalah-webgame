@@ -26,6 +26,25 @@ public class Pit {
 		return numberOfStones;
 	}
 
+	public void setNumberOfStones(int numberOfStones) {
+		this.numberOfStones = numberOfStones;
+	}
+
+	public SownPitStatus receiveStones(int numberOfReceivedStones) {
+		int previousNumberOfStones = this.numberOfStones;
+		int newNumberOfStones = previousNumberOfStones + numberOfReceivedStones;
+
+		this.numberOfStones = newNumberOfStones;
+		return new SownPitStatus(this, previousNumberOfStones,
+				newNumberOfStones);
+	}
+
+	public int removeStones() {
+		int previousNumberOfStones = this.numberOfStones;
+		this.numberOfStones = 0;
+		return previousNumberOfStones;
+	}
+
 	@Override
 	public String toString() {
 		return format("{numberOfStones: %s}", numberOfStones);

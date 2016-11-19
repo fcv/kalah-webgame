@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import br.fcv.kalah_webgame.core.Game;
-
 public class GameTest {
 
 	@Test
@@ -23,4 +21,22 @@ public class GameTest {
 		assertThat(game.getActivePlayer(), equalTo(game.getPlayer1()));
 	}
 
+	@Test
+	public void whenSowEndsOnPlayerHouseHeGetsAnotherTurn() {
+
+		Game game = new Game();
+		Player originalActivePlayer = game.getActivePlayer();
+		game.sow(originalActivePlayer, 0);
+		assertThat(game.getActivePlayer(), equalTo(originalActivePlayer));
+	}
+
+	@Test
+	public void whenSowEndsActiveUserShouldBeChanged() {
+
+		Game game = new Game();
+		Player originalActivePlayer = game.getActivePlayer();
+		assertThat(originalActivePlayer, equalTo(game.getPlayer1()));
+		game.sow(originalActivePlayer, 1);
+		assertThat(game.getActivePlayer(), equalTo(game.getPlayer2()));
+	}
 }

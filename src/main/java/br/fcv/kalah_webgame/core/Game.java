@@ -1,5 +1,6 @@
 package br.fcv.kalah_webgame.core;
 
+import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 
 /**
@@ -35,6 +36,22 @@ public class Game {
 
 	public Player getActivePlayer() {
 		return activePlayer;
+	}
+
+	public void sow(Player player, int resourcePitIndex) {
+
+		// TODO raise a meaningful Exception
+		checkState(player.equals(activePlayer), "player should be the active player");
+
+		Player opponent = player.equals(player1) ? player2 : player1;
+		player.sow(resourcePitIndex, opponent, (lastSownPit) -> {
+
+			// only change active player if current player's sown haven't
+			// finished on his own house
+			if (!lastSownPit.equals(player.getHouse())) {
+				activePlayer = opponent;
+			}
+		});
 	}
 
 	@Override
