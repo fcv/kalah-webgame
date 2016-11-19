@@ -5,6 +5,12 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.util.List;
 
+/**
+ * Represent one player in a {@link Game}.
+ *
+ * @author veronez
+ *
+ */
 public enum Player {
 
 	PLAYER_1 {

@@ -4,6 +4,14 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.lang.String.format;
 
+/**
+ * Represent the status of a {@link Pit} after a sow action has been performed
+ * in it. It holds information about how many stones there were before sown and
+ * how many stones there are after it.
+ * 
+ * @author veronez
+ *
+ */
 public class SownPitStatus {
 
 	private final Pit pit;
