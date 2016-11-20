@@ -46,4 +46,25 @@ public class PlayerTest {
 		assertThat(p2.getHouse(), hasNumberOfStones(equalTo(0)));
 	}
 
+
+
+	@Test
+	public void whenPlaySowsALotOfStonesItsPitsShouldBeSnownAlso() {
+
+		Game game = new Game();
+		PlayerBoard p1 = game.getPlayer1Board();
+		PlayerBoard p2 = game.getPlayer2Board();
+
+		p1.setNumberOfStones(1, 2, 3, 4, 5, 10);
+		p2.setNumberOfStones(5, 4, 3, 2, 1, 0);
+
+		PLAYER_1.sow(5, p1, p2, emptyListener());
+
+		assertThat(p1.getPits(), containsNumberOfStones(2, 3, 4, 4, 5, 0));
+		assertThat(p1.getHouse(), hasNumberOfStones(equalTo(1)));
+
+		assertThat(p2.getPits(), containsNumberOfStones(6, 5, 4, 3, 2, 1));
+		assertThat(p2.getHouse(), hasNumberOfStones(equalTo(0)));
+	}
+
 }
