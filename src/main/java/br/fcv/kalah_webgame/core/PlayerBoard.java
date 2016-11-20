@@ -40,7 +40,7 @@ public class PlayerBoard implements Serializable {
 	private Long id;
 
 	/**
-	 * The player to whon this board part belongs to
+	 * The player to whom this board part belongs to
 	 */
 	@Column(name = "owner", nullable = false)
 	public Player owner;
