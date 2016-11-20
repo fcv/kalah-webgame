@@ -12,7 +12,7 @@ import org.junit.Test;
 public class PlayerTest {
 
 	@Test
-	public void whenPlayerSnows() {
+	public void whenPlayerSowsPitsStonesShouldBeIncremented() {
 
 		Game game = new Game();
 		PlayerBoard p1 = game.getPlayer1Board();
@@ -28,7 +28,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void whenPlaySnowEndsOnAnEmptyPitItShouldTakeOpponentStones() {
+	public void whenPlaySownEndsOnAnEmptyPitItShouldTakeOpponentStones() {
 
 		Game game = new Game();
 		PlayerBoard p1 = game.getPlayer1Board();
