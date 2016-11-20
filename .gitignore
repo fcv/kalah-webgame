@@ -4,6 +4,7 @@ target/
 build/
 .gradle/
 # eclipse files
+.tern-project
 .classpath
 .project
 .settings/
