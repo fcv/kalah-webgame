@@ -141,7 +141,7 @@ public class Game implements Serializable {
 		PLAYER_2.moveRemainingStonesToHouse(p2Board);
 
 		Pit p1House = p1Board.getHouse();
-		Pit p2House = p1Board.getHouse();
+		Pit p2House = p2Board.getHouse();
 
 		Player winner = p1House.getNumberOfStones() > p2House
 				.getNumberOfStones() ? PLAYER_1 : PLAYER_2;
