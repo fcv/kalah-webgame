@@ -4,8 +4,22 @@ import static br.fcv.kalah_webgame.core.Player.PLAYER_1;
 import static br.fcv.kalah_webgame.core.Player.PLAYER_2;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.AUTO;
 
+import java.io.Serializable;
 import java.util.Optional;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represent one active Kalah game. The players, the board and its state,
@@ -14,23 +28,53 @@ import java.util.Optional;
  * @author veronez
  *
  */
-public class Game {
+@Entity
+@Table(name = "game")
+public class Game implements Serializable {
+
+	private static final long serialVersionUID = 8484211766248241897L;
 
 	public static final int INITIAL_NUMBER_OF_STONES = 6;
 	public static final int NUMBER_OF_PITS = 6;
 
+	@Id
+	@GeneratedValue(strategy = AUTO)
+	private Long id;
+
+	@ManyToOne(fetch = LAZY, cascade = ALL)
+	@JoinColumn(name = "player1_board", nullable = false)
 	private PlayerBoard player1Board;
+
+	@ManyToOne(fetch = LAZY, cascade = ALL)
+	@JoinColumn(name = "player2_board", nullable = false)
 	private PlayerBoard player2Board;
 
+	@Enumerated(STRING)
+	@Column(name = "active_player", nullable = false)
 	private Player activePlayer;
 
+	@Enumerated(STRING)
+	@Column(name = "winner", nullable = true)
 	private Player winner;
 
 	public Game() {
+		this(null);
+	}
+
+	public Game(Long id) {
+		this.id = id;
 		this.player1Board = new PlayerBoard(PLAYER_1);
 		this.player2Board = new PlayerBoard(PLAYER_2);
 		this.activePlayer = PLAYER_1;
 		this.winner = null;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public PlayerBoard getPlayer1Board() {
@@ -107,7 +151,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return format("{player1Board: %s, player2Board: %s, activePlayer: %s}", player1Board, player2Board, activePlayer);
+		return format("{id: %s, player1Board: %s, player2Board: %s, activePlayer: %s}", id, player1Board, player2Board, activePlayer);
 	}
 
 }

@@ -4,10 +4,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toCollection;
+import static javax.persistence.GenerationType.AUTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
 /**
  * Represents one player's board "sections" (pits and house) in the
@@ -15,21 +29,36 @@ import java.util.stream.IntStream;
  *
  * @author veronez
  */
-public class PlayerBoard {
+@Entity
+@Table(name = "player_board")
+public class PlayerBoard implements Serializable {
+
+	private static final long serialVersionUID = -4892742656533366244L;
+
+	@Id
+	@GeneratedValue(strategy = AUTO)
+	private Long id;
 
 	/**
 	 * The player to whon this board part belongs to
 	 */
+	@Column(name = "owner", nullable = false)
 	public Player owner;
 
 	/**
 	 * PlayerBoard's "regular" pits within game's board
 	 */
+	@ElementCollection
+	@CollectionTable(name = "pit", joinColumns = @JoinColumn(name = "player_board_id"))
+	@OrderColumn(name = "index")
 	private List<Pit> pits;
 
 	/**
 	 * PlayerBoard's house (kalah) pit
 	 */
+	@Embedded
+	@AttributeOverride(name = "numberOfStones", column = @Column(name = "house_number_of_stones", nullable = false))
+	@OrderColumn(name = "index")
 	private Pit house;
 
 	public PlayerBoard(Player owner) {
@@ -83,6 +112,6 @@ public class PlayerBoard {
 	}
 
 	public String toString() {
-		return format("{pits: %s, house: %s}", pits, house);
+		return format("{id: %s, pits: %s, house: %s}", id, pits, house);
 	}
 }

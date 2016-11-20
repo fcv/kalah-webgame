@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.lang.String.format;
 
+import java.io.Serializable;
+
 /**
  * Represent the status of a {@link Pit} after a sow action has been performed
  * in it. It holds information about how many stones there were before sown and
@@ -12,7 +14,9 @@ import static java.lang.String.format;
  * @author veronez
  *
  */
-public class SownPitStatus {
+public class SownPitStatus implements Serializable {
+
+	private static final long serialVersionUID = -7523411819157145496L;
 
 	private final Pit pit;
 	private final int previousNumberOfStones;

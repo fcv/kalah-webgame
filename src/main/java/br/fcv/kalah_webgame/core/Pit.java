@@ -2,16 +2,25 @@ package br.fcv.kalah_webgame.core;
 
 import static java.lang.String.format;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * Represents one Pit in games's board.
  *
  * @author veronez
  */
-public class Pit {
+@Embeddable
+public class Pit implements Serializable {
+
+	private static final long serialVersionUID = -6728857647947700468L;
 
 	/**
 	 * Number of stones currently in this pit
 	 */
+	@Column(name = "number_of_stones")
 	private int numberOfStones;
 
 	public Pit() {

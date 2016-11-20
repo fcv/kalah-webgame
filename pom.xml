@@ -25,11 +25,55 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--
+            See more about Jackson support to Java 8 and Java 8's Date/Time and
+            Java 8's Optional in
+            https://github.com/FasterXML/jackson-modules-java8/blob/1706ce15fd131a2b2ba5036a66fdeeebcc322e95/datetime/README.md
+        -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+        </dependency>
+
+        <!--
+            spring-boot-devtools provides:
+             - hot swapping
+             - disables template engines cache
+             - live reload
+            @see http://docs.spring.io/spring-boot/docs/1.4.2.RELEASE/reference/htmlsingle/#using-boot-devtools
+            @see https://spring.io/guides/gs/serving-web-content/#_developing_web_apps
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>20.0</version>
         </dependency>
+
+        <!-- give us access to @Inject annotation -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <!-- database -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- /database -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -22,6 +22,7 @@ System is implemented using mostly:
 
 - [Spring Boot](https://projects.spring.io/spring-boot/)
 - Spring MVC
+- [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
 
 ## Execute
 
