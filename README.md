@@ -29,3 +29,5 @@ System is implemented using mostly:
 System requires Java 8 and Maven 3 and may be executed using command:
 
     $ mvn spring-boot:run
+
+Spring Boot will start an embedded Tomcat and automatically deploy application. After that system may be accessed using URL [http://localhost:8080/](http://localhost:8080/).

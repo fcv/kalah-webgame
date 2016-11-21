@@ -61,6 +61,10 @@ public class PlayerBoard implements Serializable {
 	@OrderColumn(name = "index")
 	private Pit house;
 
+	// makes hibernate happy
+	public PlayerBoard() {
+	}
+
 	public PlayerBoard(Player owner) {
 
 		this.owner = owner;
@@ -112,6 +116,6 @@ public class PlayerBoard implements Serializable {
 	}
 
 	public String toString() {
-		return format("{id: %s, pits: %s, house: %s}", id, pits, house);
+		return format("{id: %s, owner: %s, pits: %s, house: %s}", id, owner, pits, house);
 	}
 }

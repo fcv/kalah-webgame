@@ -10,4 +10,6 @@ public interface GameService {
 
 	public Optional<Game> tryGet(Long id);
 
+	public Game sow(Long id, Player player, int sourcePitIndex);
+
 }

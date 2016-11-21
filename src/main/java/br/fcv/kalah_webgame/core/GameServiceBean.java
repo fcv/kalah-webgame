@@ -46,4 +46,13 @@ public class GameServiceBean implements GameService {
 		return repository.tryFind(id);
 	}
 
+	@Override
+	public Game sow(Long id, Player player, int sourcePitIndex) {
+
+		logger.debug("sow(id: {}, player: {}, sourcePitIndex: {})", id, player, sourcePitIndex);
+		Game game = repository.findExpected(id);
+		game.sow(player, sourcePitIndex);
+		logger.trace("finished sow on id: {}, player: {}, sourcePitIndex: {}, game state is {}", id, player, sourcePitIndex, game);
+		return game;
+	}
 }
