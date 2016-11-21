@@ -11,6 +11,13 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+/**
+ * 
+ * @see FindExpectedRepositoryCustom
+ *
+ * @param <Entity> Entity type
+ * @param <Id> Entity's Id type
+ */
 public class FindExpectedRepositoryImpl<Entity, Id extends Serializable>
 		extends SimpleJpaRepository<Entity, Id> implements
 		FindExpectedRepositoryCustom<Entity, Id> {

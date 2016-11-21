@@ -97,7 +97,19 @@ public class Game implements Serializable {
 		return winner != null;
 	}
 
-	public void sow(Player player, int resourcePitIndex) {
+	/**
+	 * <p>
+	 * Triggers {@code Player}'s {@link Player#sow(int, PlayerBoard, PlayerBoard, TurnListener) sow}
+	 * action in this game.
+	 * </p>
+	 *
+	 * @param player the player to perform sow action
+	 * @param sourcePitIndex the index of the Pit where stones will be retrieved from
+	 * 
+	 * @throws IllegalStateException if {@code player} is not the currently active player
+	 * @throws IllegalStateException if this game has already been finished
+	 */
+	public void sow(Player player, int sourcePitIndex) {
 
 		// TODO raise a meaningful Exception
 		checkState(player.equals(activePlayer), "player should be the active player");
@@ -108,7 +120,7 @@ public class Game implements Serializable {
 		PlayerBoard opponentBoard = opponent.getBoard(this);
 
 		PlayerBoard playerBoard = player.getBoard(this);
-		player.sow(resourcePitIndex, playerBoard, opponentBoard, (lastSownPit) -> {
+		player.sow(sourcePitIndex, playerBoard, opponentBoard, (lastSownPit) -> {
 
 			PlayerBoard p1 = getPlayer1Board();
 			PlayerBoard p2 = getPlayer2Board();

@@ -6,7 +6,13 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.List;
 
 /**
+ * <p>
  * Represent one player in a {@link Game}.
+ * </p>
+ * <p>
+ * Development note: Since {@link Player} holds no state at all and there will
+ * always be only two Players per game it has been modeled as an {@code enum}.
+ * </p>
  *
  * @author veronez
  *
@@ -37,11 +43,35 @@ public enum Player {
 		}
 	};
 
+	/**
+	 * Retrieves this player's opponent player
+	 *
+	 * @return this player's opponent player
+	 */
 	public abstract Player getOpponent();
 
+	/**
+	 * Retrieves this player's board part.
+	 * 
+	 * @param game the {@link Game} this player participates
+	 * @return player's board part in whole game's board.
+	 */
 	public abstract PlayerBoard getBoard(Game game);
 
-	public void sow(int sourcePitIndex, PlayerBoard board, PlayerBoard opponent, TurnListener turnListener) {
+	/**
+	 * Sows all stones from its own {@link Pit} represented by
+	 * {@code sourcePitIndex} in its own board's Pits and also in opponent
+	 * board's Pits.
+	 * 
+	 * @param sourcePitIndex the index of the Pit where stones will be retrieved from
+	 * @param board this player's board part
+	 * @param opponentBoard opponent's board part
+	 * @param turnListener listener to be called when this player finishes his move
+	 * 
+	 * @throws IllegalArgumentException if {@code sourcePitIndex} is not a valid pit index
+	 *   or if pit contains no stone to be sown
+	 */
+	public void sow(int sourcePitIndex, PlayerBoard board, PlayerBoard opponentBoard, TurnListener turnListener) {
 		
 		List<Pit> pits = board.getPits();
 		Pit house = board.getHouse();
@@ -56,7 +86,7 @@ public enum Player {
 
 		int numberOfSownStonesPerPit = 1;
 		int startIdx = sourcePitIndex + 1;
-		List<Pit> opponentPits = opponent.getPits();
+		List<Pit> opponentPits = opponentBoard.getPits();
 
 		while (numberOfStones > 0) {
 
@@ -116,7 +146,7 @@ public enum Player {
 	}
 
 	/**
-	 * Moves all remaining stones is player's "ordinal" pits to his house pit.
+	 * Moves all remaining stones in this player's "ordinal" pits to his house pit.
 	 */
 	public void moveRemainingStonesToHouse(PlayerBoard board) {
 
