@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Kalah WebGame</title>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1><a href="https://en.wikipedia.org/wiki/Kalah">Kalah</a> WebGame</h1>
+			<a href="https://gitlab.com/fcv/kalah-webgame/" class="btn btn-primary">Source Code @ GitLab</a>
+			<a href="https://gitlab.com/fcv/kalah-webgame/pipelines"><img src="https://gitlab.com/fcv/kalah-webgame/badges/develop/build.svg"></a>
+		</div>
+		<button type="button" class="btn btn-default new-game-trigger" data-url="./api/rest/v1/games">New Game</button>
+	</div>
+
+	<div class="status hide">
+		<div class="game-id-section">
+			<label>Game #<span class="game-id-label"></span></label>
+		</div>
+		<div class="active-player-section">
+			<label>Turn:</label>
+			<span data-player="PLAYER_1">Player 1</span>
+			<span data-player="PLAYER_2">Player 2</span>
+		</div>
+		<div class="winner-player-section">
+			<label>Winner:</label>
+			<span data-player="PLAYER_1">Player 1</span>
+			<span data-player="PLAYER_2">Player 2</span>
+		</div>
+	</div>
+
+	<div class="board hide" data-sow-endpoint-url-template="/api/rest/v1/games/{gameId}/sow?player={playerId}&pitIndex={pitIndex}">
+		<div class="house pit" data-player="PLAYER_1" title="Player 1's House">
+			<button class="btn btn-primary disabled">0</button>
+		</div>
+		<div class="center-section">
+			<div class="row-section">
+				<div class="pit" data-player="PLAYER_1" data-pit-index="5" title="Player 1's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_1" data-pit-index="4" title="Player 1's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_1" data-pit-index="3" title="Player 1's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_1" data-pit-index="2" title="Player 1's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_1" data-pit-index="1" title="Player 1's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_1" data-pit-index="0" title="Player 1's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+			</div>
+			<div class="row-section">
+				<div class="pit" data-player="PLAYER_2" data-pit-index="0" title="Player 2's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_2" data-pit-index="1" title="Player 2's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_2" data-pit-index="2" title="Player 2's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_2" data-pit-index="3" title="Player 2's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_2" data-pit-index="4" title="Player 2's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+				<div class="pit" data-player="PLAYER_2" data-pit-index="5" title="Player 2's pit">
+					<button class="btn btn-success">6</button>
+				</div>
+			</div>
+		</div>
+		<div class="house pit" data-player="PLAYER_2" title="Player 2's House">
+			<button class="btn btn-primary disabled">0</button>
+		</div>
+	</div>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="./index.js"></script>
+</body>
+</html>

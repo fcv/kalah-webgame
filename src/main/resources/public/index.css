@@ -1,0 +1,46 @@
+.status {
+	width: 730px;
+	margin: 10px auto;
+}
+
+.board {
+	width: 730px;
+	height: 190px;
+	border: 1px solid black;
+	margin: 10px auto;
+}
+
+.board .pit {
+	padding: 4px;
+	margin: 5px;
+	float: left;
+	border: 1px solid black;
+	height: 80px;
+	width: 80px;
+}
+
+.board .pit.house {
+	height: 170px;
+}
+
+.board .pit.house .btn {
+	/* overrides "not-allowed" cursor */
+	cursor: default;
+}
+
+.board .center-section {
+	float: left;
+}
+
+.board .center-section .row-section:not(:first-child) {
+	clear: both;
+}
+
+.board .btn {
+	height: 100%;
+	width: 100%;
+}
+
+.board .btn {
+	font-weight: bolder;
+}
